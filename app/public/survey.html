@@ -157,8 +157,31 @@
     </footer>
 </html>
 <script type="text/javascript">
+function matches(){
+    var currentURL = window.location.origin;
+    console.log(currentURL+"/api/friends");
+    $.ajax({ url: currentURL + "/api/friends", method: "GET" }).then(function(friends) {
+        
+        var diffArray=[];
+        var friendsLength=friends.length;
+        var scoresLength=10;
+
+        for(var i=0;i<friendsLength-1;i++){
+            var sumofdiffs=0;
+            for(var j=0;j<scoresLength;j++){
+                  var friendI=friends[i].scores[j].parseInt();
+                  var recentlyAddedfriend=friends[friendsLength-1].scores[j].parseInt();
+                  var diff=abs(recentlyAddedfriend-friendI);
+                  sumofdiffs=diff+sumofdiffs;
+            }
+            diffArray.push(sumofdiffs);
+        }
+        console.log(diffArray);
+    });
+}
     $("#submit").on("click", function(event) {
       event.preventDefault();
+
       
       var newFriend = {
         name:$("#friendName").val().trim(),
@@ -186,7 +209,8 @@
         }
         console.log(empty);
         if(empty===0 && newFriend.name!==" " && newFriend.link!==" "){
-            $.post("/api/friends", newFriend,function(data){});
+            $.post("/api/friends", newFriend,function(){});
+            matches();
         }
         else{
             alert("Please fill out all fields before submitting!");
