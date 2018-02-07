@@ -1,15 +1,15 @@
-var tableData = require("../data/friends");
+var friends = require("../data/friends");
 
 module.exports = function(app) {
    
     app.get("/api/friends", function(req, res) {
-      res.json(tableData);
+      res.json(friends);
     });
 
-   app.post("/api/friends", function(req, res) {
-        tableData.push(req.body);
-        res.json(true);
-    });
+    app.post("/api/friends", function(req, res) {
+       friends.push(req.body);
+      
+   });
   
     /*// ---------------------------------------------------------------------------
     // I added this below code so you could clear out the table while working with the functionality.
