@@ -11,5 +11,4 @@ Friend Finder takes in a user's name, photo URL, and answers to ten compatibilit
 The Friend Finder application aims to further developer's newly learned skills in Node.js by working with Express-- framework for working in local server,body-parser--middleware,path module for working with files and directory paths, and Heroku--on the cloud app deployment platform.Previously mastered skills in HTML5, jQuery, and Bootstrap come together with these new sklls to develop the Friend Finder application.
 
 **Improvements:**
-1. Currently the application uses indexOf(), which only returns the first user that matches.Work on returning multiple or all matches.
-2. Break code into functions.
+1. add some css, make it into a theme.
