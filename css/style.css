@@ -1,0 +1,16 @@
+body{
+	background-color: #ffffff;
+}
+#banner{
+	background-image: url("../imgs/friends.jpg");
+	background-size: 100% 100%;
+	font-family: 'Abril Fatface', cursive;
+	color:#ffffff;
+}
+#mainHeading{
+	color:#fdf2f0
+}
+#subMain{
+	font-family: 'Alfa Slab One', cursive;
+	color:#ffffff;
+}
