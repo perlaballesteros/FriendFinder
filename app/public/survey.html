@@ -192,15 +192,28 @@
         matchInfo.append(img);
         $('#myModal').modal("show");
     }
-
-    function matches(){
-        var currentURL = window.location.origin;
-        console.log(currentURL+"/api/friends");
-        $.ajax({ url: currentURL + "/api/friends", method: "GET" }).then(function(friends) {
-        
-            var diffArray=[];
-            var friendsLength=friends.length;
-            var scoresLength=10;
+    function findMatches(matchIndxs,friends){
+        for (var i=0;i<matchIndxs.length;i++){
+            var matchName=friends[matchIndxs[i]].name;
+            var matchPhoto=friends[matchIndxs[i]].photo;
+            popUp(matchName,matchPhoto);
+        }
+            
+    }
+    function matchIndexes(diffArray,friends){
+        var smallestDiff=Math.min.apply(null,diffArray);
+        var matchIndxs = [];
+        for (var i=0;i<diffArray.length;i++) {
+            if (diffArray[i] === smallestDiff) {
+                matchIndxs.push(i);
+            }
+        }
+        findMatches(matchIndxs,friends);
+    }
+    function calcDiffs(friends){
+        var diffArray=[];
+        var friendsLength=friends.length;
+        var scoresLength=10;
 
             for(var i=0;i<friendsLength-1;i++){
                 var sumofdiffs=0;
@@ -209,14 +222,18 @@
                     var recentlyAddedfriend=parseInt(friends[friendsLength-1].scores[j]);
                     var diff=Math.abs(recentlyAddedfriend-friendI);
                     sumofdiffs=diff+sumofdiffs;
+                }
+                diffArray.push(sumofdiffs);
             }
-            diffArray.push(sumofdiffs);
-            }
-            var smallestDiff=Math.min.apply(null,diffArray);
-            var matchIndex=diffArray.indexOf(smallestDiff);
-            var matchName=friends[matchIndex].name;
-            var matchPhoto=friends[matchIndex].photo;
-            popUp(matchName,matchPhoto);
+            
+        matchIndexes(diffArray,friends);
+
+    }
+    function accessApi(){
+        var currentURL = window.location.origin;
+        console.log(currentURL+"/api/friends");
+        $.ajax({ url: currentURL + "/api/friends", method: "GET" }).then(function(friends) {
+            calcDiffs(friends);
         });
     }
 
@@ -248,7 +265,7 @@
         if(emptyAnsws===0 && newFriend.name!==" " && newFriend.link!==" "){
             $.post("/api/friends", newFriend,function(){});
             $("#modalBody").empty();
-            matches();
+            accessApi();
         }
         else{
             alert("Please fill out all fields before submitting!");
