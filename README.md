@@ -2,7 +2,7 @@
 ## By Perla E. Ballesteros
 
 ![Demo gif](/imgs/FriendFinderDemo.gif)
-[Demo Version](https://peaceful-spire-63532.herokuapp.com/)
+* [Demo Version](https://peaceful-spire-63532.herokuapp.com/)
 
 ## Description:
 Friend Finder takes in a user's name, photo URL, and answers to ten compatibility questions. Once the user submits all fields required, the app posts this information as a JSON object. The API is accessed via an AJAX call returning the name and photo of all compatible matches in a bootstrap modal.
